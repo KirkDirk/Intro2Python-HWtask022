@@ -21,24 +21,16 @@ else: list_gamers[1] = gamer1
 print('Играют в Конфеты: ', gamer1, ' и ', gamer2, '. Первым будет ходить - ', list_gamers[0])
 print('За ход можно взять не больше 28 конфет')
 
-# проводим раунд и передаем ход другому игроку
-def move_candy(move_g, rest):
-    if rest == 0: 
-        return move_g
-    print('Игрок', list_gamers[move_g], ': возьми конфет:')
-    count_candy = int(input())
-    if count_candy > 28 or count_candy < 0 or count_candy > rest:
-        count_candy = int(input('Неверное число, попробуй еще раз:'))
-    rest_candy = rest - count_candy
-    move_g += 1
-    print('Остаток конфер на столе: ', rest_candy) 
-    move_candy(move_g%2, rest_candy)
-  
 # играем
-rest_candy = 202
-print('Остаток конфер на столе: ', rest_candy)
-move_gamer = 0
-# while rest_candy > 0: 
-move_candy(move_gamer, rest_candy)
-
-print('Победил ', list_gamers[move_gamer%2])
+rest_candy = 21
+move_g = 0
+print('Остаток конфет на столе: ', rest_candy)
+while rest_candy>0:
+    print('Ход', move_g+1,'- Игрок', list_gamers[move_g%2], 'возьми конфет:')
+    count_candy = int(input())
+    while count_candy > 28 or count_candy < 0 or count_candy > rest_candy:
+        count_candy = int(input('Неверное число, попробуй еще раз: '))
+    rest_candy -= count_candy
+    print('Остаток конфет на столе: ', rest_candy)
+    move_g +=1
+print('Победил игрок', list_gamers[move_g%2-1])

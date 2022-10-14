@@ -8,9 +8,10 @@
 # b) Подумайте как наделить бота ""интеллектом""
 
 import random
-
+game_mode = int(input('Выберите режим игры: 1 - ЧхЧ, 2 - ЧхБ: '))
 gamer1 = input('Введите имя первого игрока: ')
-gamer2 = input('Введите имя второго игрока: ')
+if game_mode == 1: gamer2 = input('Введите имя второго игрока: ')
+if game_mode == 2: gamer2 = 'Bot'
 
 # формируем очередность игроков 
 list_gamers = [gamer1, gamer2]
@@ -22,15 +23,21 @@ print('Играют в Конфеты: ', gamer1, ' и ', gamer2, '. Первы�
 print('За ход можно взять не больше 28 конфет')
 
 # играем
-rest_candy = 21
+rest_candy = 50
+rest = 28
 move_g = 0
 print('Остаток конфет на столе: ', rest_candy)
 while rest_candy>0:
     print('Ход', move_g+1,'- Игрок', list_gamers[move_g%2], 'возьми конфет:')
-    count_candy = int(input())
-    while count_candy > 28 or count_candy < 0 or count_candy > rest_candy:
-        count_candy = int(input('Неверное число, попробуй еще раз: '))
+    if list_gamers[move_g%2] == 'Bot':
+        count_candy = random.randint(1, rest)
+        print(count_candy)
+    else:    
+        count_candy = int(input())
+        while count_candy > 28 or count_candy < 0 or count_candy > rest_candy:
+            count_candy = int(input('Неверное число, попробуй еще раз: '))
     rest_candy -= count_candy
+    rest = min(29, rest_candy)
     print('Остаток конфет на столе: ', rest_candy)
     move_g +=1
 print('Победил игрок', list_gamers[move_g%2-1])

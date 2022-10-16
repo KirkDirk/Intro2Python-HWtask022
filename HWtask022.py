@@ -24,7 +24,7 @@ print('Играют в Конфеты: ', gamer1, ' и ', gamer2, '. Первы�
 print('За ход можно взять не больше 28 конфет')
 
 # играем
-rest_candy = 100
+rest_candy = 200
 rest = 28
 move_g = 0
 print('Остаток конфет на столе: ', rest_candy)
@@ -34,10 +34,8 @@ while rest_candy>0:
         count_candy = random.randint(1, rest)
         print(count_candy)
     elif list_gamers[move_g%2] == 'Skynet':
-        if rest_candy < 29: count_candy = rest_candy
-        elif 29 < rest_candy < 57: count_candy = rest_candy-29
-        elif 57 < rest_candy < 85: count_candy = rest_candy-28-29
-        else: count_candy = random.randint(1, rest)
+        count_candy = rest_candy % rest 
+        if count_candy < 1: count_candy = random.randint(1, rest)
         print(count_candy)
     else:    
         count_candy = int(input())
